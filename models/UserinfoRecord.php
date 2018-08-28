@@ -48,8 +48,8 @@ class UserinfoRecord extends \yii\db\ActiveRecord {
         ];
     }
 
-    public function setUserinfo($newUser) {
-        $this->user_id = $newUser->user_id;
+    public function setUserinfo($newUser, $userid) {
+        $this->user_id = $userid;
         $this->nickname = $newUser->nickname;
         $this->fm = $newUser->fm;
         $this->name = $newUser->name;

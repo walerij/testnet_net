@@ -78,8 +78,8 @@ class UserController extends Controller {
                 $SaveNewUserRecord->save(); //сохранили рег данные
                 //теперь информация о пользователе
                 $SaveNewUserinfoRecord = new UserinfoRecord();
-                $model->user_id=$SaveNewUserRecord->user_id;
-                $SaveNewUserinfoRecord->setUserinfo($model);
+               
+                $SaveNewUserinfoRecord->setUserinfo($model,$SaveNewUserRecord->id);
                 $SaveNewUserinfoRecord->save(); //сохранили информацию о пользователе
                 $this->redirect("/site/login");
                 
