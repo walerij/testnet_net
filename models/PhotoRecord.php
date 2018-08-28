@@ -42,4 +42,10 @@ class PhotoRecord extends \yii\db\ActiveRecord
             'info' => 'Info',
         ];
     }
+    
+    
+    public function getUser() {
+    return $this->hasMany(UserRecord::className(), ['id' => 'user_id'])
+      ->viaTable('userphoto', ['photo_id' => 'id']);
+}
 }

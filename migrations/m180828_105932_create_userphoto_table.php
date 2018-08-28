@@ -14,7 +14,11 @@ class m180828_105932_create_userphoto_table extends Migration
     {
         $this->createTable('userphoto', [
             'id' => $this->primaryKey(),
+            'user_id' => $this->integer(),
+            'photo_id'=> $this->integer(),
+            
         ]);
+        
     }
 
     /**
