@@ -11,22 +11,21 @@ use Yii;
  * @property string $link
  * @property string $info
  */
-class PhotoRecord extends \yii\db\ActiveRecord
-{
+class PhotoRecord extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'photo';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
+            [['id'],'integer'],
             [['link', 'info'], 'string', 'max' => 255],
         ];
     }
@@ -34,18 +33,17 @@ class PhotoRecord extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'link' => 'Link',
             'info' => 'Info',
         ];
     }
-    
-    
+
     public function getUser() {
-    return $this->hasMany(UserRecord::className(), ['id' => 'user_id'])
-      ->viaTable('userphoto', ['photo_id' => 'id']);
-}
+        return $this->hasMany(UserRecord::className(), ['id' => 'user_id'])
+                        ->viaTable('userphoto', ['photo_id' => 'id']);
+    }
+
 }

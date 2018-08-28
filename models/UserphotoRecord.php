@@ -24,7 +24,11 @@ class UserphotoRecord extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [];
+        return [
+            [['user_id'], 'integer'],
+            [['photo_id'], 'integer'],
+            
+        ];
     }
 
     /**
@@ -34,6 +38,8 @@ class UserphotoRecord extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'user_id' => 'USER_ID',
+            'photo_id' => 'PHOTO_ID',
         ];
     }
 }
