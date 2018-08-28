@@ -9,14 +9,14 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\UserinfoForm;
 
-class UserController extends Controller
-{
+class UserController extends Controller {
+
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -41,8 +41,7 @@ class UserController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function actions()
-    {
+    public function actions() {
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -59,13 +58,17 @@ class UserController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
+        
         return $this->render('index');
+        
     }
-    
-    public function actionAdduser()
-    {
-        return $this->render('adduser');
+
+    public function actionAdduser() {
+        
+        $model = new UserinfoForm();
+        return $this->render('adduser', ['model' => $model,]);
+        
     }
+
 }

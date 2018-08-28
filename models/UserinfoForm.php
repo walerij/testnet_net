@@ -12,7 +12,7 @@ use yii\base\Model;
  * @property User|null $user This property is read-only.
  *
  */
-class LoginForm extends Model
+class UserinfoForm extends Model
 {
     public $username;
     public $password;
@@ -28,8 +28,7 @@ class LoginForm extends Model
             // username and password are both required
             [['username', 'password','confirmPassword'], 'required'],
            
-            // password is validated by validatePassword()
-            ['password', 'validatePassword'],
+           
              
              [['username', 'password','confirmPassword','nickname','fm','name','city'], 'string'],
              
