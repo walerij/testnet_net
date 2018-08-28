@@ -10,6 +10,8 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\UserinfoForm;
+use app\models\UserinfoRecord;
+use app\models\UserRecord;
 
 class UserController extends Controller {
 
@@ -59,16 +61,30 @@ class UserController extends Controller {
      * @return string
      */
     public function actionIndex() {
-        
+
         return $this->render('index');
-        
     }
 
     public function actionAdduser() {
-        
+
         $model = new UserinfoForm();
+
+        if ($model->load(Yii::$app->request->post()))// если данные пришли через post             
+            if ($model->validate()) 
+            {
+                //рег данные
+                $SaveNewUserRecord = new UserRecord();
+                $SaveNewUserRecord->setNewUser($model);
+                $SaveNewUserRecord->save(); //сохранили рег данные
+                //теперь информация о пользователе
+                $SaveNewUserinfoRecord = new UserinfoRecord();
+                $model->user_id=$SaveNewUserRecord->user_id;
+                $SaveNewUserinfoRecord->setUserinfo($model);
+                $SaveNewUserinfoRecord->save(); //сохранили информацию о пользователе
+                $this->redirect("/site/login");
+                
+            }
         return $this->render('adduser', ['model' => $model,]);
-        
     }
 
 }

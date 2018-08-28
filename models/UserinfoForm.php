@@ -5,15 +5,12 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use app\models\User;
 
-/**
- * LoginForm is the model behind the login form.
- *
- * @property User|null $user This property is read-only.
- *
- */
+
 class UserinfoForm extends Model
 {
+    public $user_id;
     public $username;
     public $password;
     public $confirmPassword;
@@ -26,11 +23,10 @@ class UserinfoForm extends Model
     public function rules() {
          return [
             // username and password are both required
-            [['username', 'password','confirmPassword'], 'required'],
-           
-           
-             
+            [['username','user_id', 'password','confirmPassword'], 'required','message' => 'Поле не должно быть пустым'],
+                          
              [['username', 'password','confirmPassword','nickname','fm','name','city'], 'string'],
+             ['confirmPassword', 'compare', 'compareAttribute' => 'password','message' => 'Поля "пароль" и "Подтверждение пароля" должны совпадать'],
              
         ];
     }

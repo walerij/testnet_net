@@ -14,21 +14,19 @@ use Yii;
  * @property string $name
  * @property string $city
  */
-class UserinfoRecord extends \yii\db\ActiveRecord
-{
+class UserinfoRecord extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'userinfo';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['user_id'], 'required'],
             [['user_id'], 'integer'],
@@ -39,8 +37,7 @@ class UserinfoRecord extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
@@ -50,4 +47,13 @@ class UserinfoRecord extends \yii\db\ActiveRecord
             'city' => 'City',
         ];
     }
+
+    public function setUserinfo($newUser) {
+        $this->user_id = $newUser->user_id;
+        $this->nickname = $newUser->nickname;
+        $this->fm = $newUser->fm;
+        $this->name = $newUser->name;
+        $this->city = $newUser->city;
+    }
+
 }

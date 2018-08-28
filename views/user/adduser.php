@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </ul>
 <div class="tab-content">
     <div id="panel1" class="tab-pane fade in active">
-        <h3>Данные авторизации</h3>
+        
         <div class="col-lg-6 col-md-6">  
             
             <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Логин') ?>

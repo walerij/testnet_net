@@ -46,4 +46,17 @@ class UserRecord extends \yii\db\ActiveRecord
             'access_token' => 'Access Token',
         ];
     }
+    
+    public function setNewUser($new_user)
+    {
+        $this->username = $new_user->username;
+        $this->password= $new_user->password;
+        $this->password = md5($this->password);
+    }
+    
+    
+    public function getUserinfo()
+    {
+        return $this->hasOne(UserinfoRecord::className(),['user_id'=>'id']);
+    }
 }
