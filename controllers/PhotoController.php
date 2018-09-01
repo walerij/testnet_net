@@ -63,8 +63,10 @@ class PhotoController extends Controller {
      * @return string
      */
     public function actionIndex() {
-
-        return $this->render('index');
+        $id = 1;
+        $MyPhoto = PhotoRecord::find()->where(['id' => $id])->one();
+        return $this->render('index', ['model' => $MyPhoto]
+        );
     }
 
     public function actionAdd() {
@@ -75,22 +77,20 @@ class PhotoController extends Controller {
     public function actionAddlink() {
         //добавление связи
         $session = Yii::$app->session;
-        
-      
+
+
         //return $this->render('index');
     }
-    
-    private function  addUserPhotoLink($id=1)
-    {
-        
-        $MyPhoto=PhotoRecord::find()->where(['id'=>$id])->one();
-      
-     
+
+    private function addUserPhotoLink($id = 1) {
+
+        $MyPhoto = PhotoRecord::find()->where(['id' => $id])->one();
+
+
         $userPhoto = new UserphotoRecord();
-        $userPhoto->user_id= $session['__id'];
-        $userPhoto->photo_id=$MyPhoto->id;
+        $userPhoto->user_id = $session['__id'];
+        $userPhoto->photo_id = $MyPhoto->id;
         $userPhoto->save();
     }
-   
 
 }
