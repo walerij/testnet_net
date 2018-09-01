@@ -63,8 +63,12 @@ class PhotoController extends Controller {
      * @return string
      */
     public function actionIndex() {
-        $id = 1;
-        $MyPhoto = PhotoRecord::find()->where(['id' => $id])->one();
+       //
+        //$orders = Order::find()->joinWith('books.author')->all();
+        
+        $MyPhoto = UserphotoRecord::find()              
+                ->all();
+                //->where(['id' => $id])->one();
         return $this->render('index', ['model' => $MyPhoto]
         );
     }
