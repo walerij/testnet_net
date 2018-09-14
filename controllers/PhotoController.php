@@ -65,8 +65,10 @@ class PhotoController extends Controller {
     public function actionIndex() {
        //
         //$orders = Order::find()->joinWith('books.author')->all();
-        
-        $MyPhoto = UserphotoRecord::find()              
+         $session = Yii::$app->session;
+         
+        $MyPhoto = UserphotoRecord::find()
+                ->where(['user_id' => $session['__id']])
                 ->all();
                 //->where(['id' => $id])->one();
         return $this->render('index', ['model' => $MyPhoto]
