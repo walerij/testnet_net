@@ -122,19 +122,7 @@ class PhotoController extends Controller {
         //return $this->render('index');
     }
 
-    public function actionUpload() {
-        $model = new UploadForm();
-        if (Yii::$app->request->post()) {
-            $model->file = UploadedFile::getInstance($model, 'file');
-            if ($model->validate()) {
-                $path = Yii::$app->params['pathUploads'] . 'test/';
-                //$model->file->saveAs($path . $model->file);
-                $model->file->saveAs($path . time() . '.' . $model->file->getExtension());
-                $model->path = $path . time() . '.' . $model->file->getExtension();
-            }
-        }
-        return $this->render('index', ['model' => $model]);
-    }
+    
 
     private function addUserPhotoLink($id = 1) {
         
