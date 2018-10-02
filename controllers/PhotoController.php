@@ -14,6 +14,9 @@ use app\models\UserinfoRecord;
 use app\models\PhotoRecord;
 use app\models\UserphotoRecord;
 use app\models\UserRecord;
+use app\models\uploadForm;
+use yii\web\UploadedFile;
+
 
 class PhotoController extends Controller {
 
@@ -77,7 +80,38 @@ class PhotoController extends Controller {
 
     public function actionAdd() {
 
-        return $this->render('addphoto');
+        $model = new UploadForm();
+        if (Yii::$app->request->post()) {
+            
+            //закачка файла
+            $model->file = UploadedFile::getInstance($model, 'file');
+            if ($model->validate()) {
+                //если модель валидная
+                //1. загружаем файл на сервер
+                $path = Yii::$app->params['pathUploads'] . 'photos/';
+                //$model->file->saveAs($path . $model->file);
+                $model->file->saveAs($path . time() . '.' . $model->file->getExtension());
+                $model->path = $path . time() . '.' . $model->file->getExtension();
+                $model_name =  time() . '.' . $model->file->getExtension(); //имя файла сохраняем
+                
+                //2. имя файла сохраняем в базу данных - в коллекцию фото
+                $photo = new PhotoRecord();
+                $photo->link = $model_name;
+                $photo->info='';
+                $photo->save();
+                
+                //3. сохраняем связь в userphoto
+                
+                $this->addUserPhotoLink($photo->id);                
+                //
+                $this->redirect("/photo/index");
+                
+                
+                
+                
+            }
+        }
+        return $this->render('addphoto', ['model' => $model]);
     }
 
     public function actionAddlink() {
@@ -103,7 +137,8 @@ class PhotoController extends Controller {
     }
 
     private function addUserPhotoLink($id = 1) {
-
+        
+        $session = Yii::$app->session;
         $MyPhoto = PhotoRecord::find()->where(['id' => $id])->one();
 
 

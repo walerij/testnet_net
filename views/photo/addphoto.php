@@ -11,11 +11,20 @@ $this->title = 'Добавление фото';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<?php
+        <?php
+            $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]);
+        ?>
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
+        <?= $form->field($model, 'file')->fileInput() ->label('Выбор фотографии') ?>
+
+
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-lg-11">
+                <?= Html::submitButton('Загрузить', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+            </div>
+        </div>
+
+        <?php ActiveForm::end(); ?>
 
