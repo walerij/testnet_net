@@ -39,6 +39,7 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Фото', 'url' => ['/photo/index'], 'visible' => !Yii::$app->user->isGuest ],
+            ['label' => 'Музыка', 'url' => ['/music/index'], 'visible' => !Yii::$app->user->isGuest ],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Регистрация', 'url' => ['/user/adduser']],
             Yii::$app->user->isGuest ? (
