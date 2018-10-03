@@ -18,6 +18,7 @@ use app\models\uploadForm;
 use yii\web\UploadedFile;
 use app\models\MusicRecord;
 use app\models\UsermusicRecord;
+use app\models\uploadmusicForm;
 
 
 class MusicController extends Controller {
@@ -72,18 +73,19 @@ class MusicController extends Controller {
         //$orders = Order::find()->joinWith('books.author')->all();
         $session = Yii::$app->session;
 
-        /*$MyPhoto = UserphotoRecord::find()
+        $MyMusic = UsermusicRecord::find()
                 ->where(['user_id' => $session['__id']])
-                ->all();*/
+                ->all();
         //->where(['id' => $id])->one();
         return $this->render('index'
-                //, ['model' => $MyPhoto]
+                , ['model' => $MyMusic]
         );
     }
 
+    //добавление файла
     public function actionAdd() {
 
-        $model = new UploadForm();
+        $model = new uploadmusicForm();
         if (Yii::$app->request->post()) {
             
             //закачка файла
@@ -91,30 +93,31 @@ class MusicController extends Controller {
             if ($model->validate()) {
                 //если модель валидная
                 //1. загружаем файл на сервер
-                $path = Yii::$app->params['pathUploads'] . 'photos/';
+                $path = Yii::$app->params['pathUploads'] . 'music/';
+                $model_name_old=$model->file->baseName;
                 //$model->file->saveAs($path . $model->file);
                 $model->file->saveAs($path . time() . '.' . $model->file->getExtension());
                 $model->path = $path . time() . '.' . $model->file->getExtension();
                 $model_name =  time() . '.' . $model->file->getExtension(); //имя файла сохраняем
                 
-                //2. имя файла сохраняем в базу данных - в коллекцию фото
-                $photo = new PhotoRecord();
-                $photo->link = $model_name;
-                $photo->info='';
-                $photo->save();
+                //2. имя файла сохраняем в базу данных - в коллекцию музыки
+                $music = new MusicRecord();
+                $music->link = $model_name;
+                $music->info=''.$model_name_old;
+                $music->save();
                 
-                //3. сохраняем связь в userphoto
+                //3. сохраняем связь в usermusic
                 
-                $this->addUserPhotoLink($photo->id);                
+                $this->addUserMusicLink($music->id);                
                 //
-                $this->redirect("/photo/index");
+                $this->redirect("/music/index");
                 
                 
                 
                 
             }
         }
-        return $this->render('addphoto', ['model' => $model]);
+        return $this->render('add', ['model' => $model]);
     }
 
     public function actionAddlink() {
@@ -127,16 +130,16 @@ class MusicController extends Controller {
 
     
 
-    private function addUserPhotoLink($id = 1) {
+    private function addUserMusicLink($id = 1) {
         
         $session = Yii::$app->session;
-        $MyPhoto = PhotoRecord::find()->where(['id' => $id])->one();
+        $MyMusic = MusicRecord::find()->where(['id' => $id])->one();
 
 
-        $userPhoto = new UserphotoRecord();
-        $userPhoto->user_id = $session['__id'];
-        $userPhoto->photo_id = $MyPhoto->id;
-        $userPhoto->save();
+        $userMusic = new UsermusicRecord();
+        $userMusic->user_id = $session['__id'];
+        $userMusic->music_id = $MyMusic->id;
+        $userMusic->save();
     }
 
 }

@@ -11,9 +11,26 @@ use yii\captcha\Captcha;
     $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+<div class="row">
 
-<audio controls>
- 
-  <source src="music/1.mp3" type="audio/mpeg">
-  <a href="music/1.mp3">Скачать name.mp3</a>
-</audio>
+    
+    <a href="/music/add" title="Добавить музыку" class="btn btn-success">Добавить</a>
+</div>
+
+
+<?php
+foreach ($model as $m)
+    
+    foreach ($m->music as $music) { ?>
+
+        <h3><?= $music->info ?></h3>
+        <audio controls>
+          <source src="<?= $music->link ?>" type="audio/mpeg">
+          <a href="<?= $music->link ?>">Скачать name.mp3</a>
+        </audio>
+
+<?php
+     }
+   
+   
+?>
