@@ -16,6 +16,8 @@ use app\models\UserphotoRecord;
 use app\models\UserRecord;
 use app\models\uploadForm;
 use yii\web\UploadedFile;
+use app\models\MusicRecord;
+use app\models\UsermusicRecord;
 
 
 class MusicController extends Controller {
